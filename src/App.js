@@ -1,9 +1,12 @@
 import React from 'react';
 import './App.css';
+import Provider from './context/MyProvider';
 
 function App() {
   return (
-    <span>star wars</span>
+    <Provider>
+      <span>star wars</span>
+    </Provider>
   );
 }
 
