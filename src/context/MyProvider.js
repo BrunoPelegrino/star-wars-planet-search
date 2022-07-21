@@ -20,8 +20,13 @@ const Provider = ({ children }) => {
     planets();
   }, []);
 
+  const contextValue = {
+    state,
+    setState,
+  };
+
   return (
-    <MyContext.Provider value={ state }>
+    <MyContext.Provider value={ contextValue }>
       {children}
     </MyContext.Provider>
   );
