@@ -4,25 +4,28 @@ import MyContext from './MyContext';
 import fetchPlanets from '../service/Api';
 
 const Provider = ({ children }) => {
-  const [state, setState] = useState([]);
+  const [planets, setPlanets] = useState([]);
+  const [planetName, setPlanetName] = useState({ filterByName: { name } });
 
-  const planets = async () => {
+  const getPlanets = async () => {
     const response = await fetchPlanets();
     const data = response.results.map((result) => {
       delete result.residents;
       // console.log(result);
       return result;
-    }); setState(data);
+    }); setPlanets(data);
     // console.log(data[0].name);
   };
 
   useEffect(() => {
-    planets();
+    getPlanets();
   }, []);
 
   const contextValue = {
-    state,
-    setState,
+    planets,
+    setPlanets,
+    planetName,
+    setPlanetName,
   };
 
   return (
