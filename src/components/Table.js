@@ -1,29 +1,16 @@
 import React, { useContext } from 'react';
-import { PropTypes } from 'prop-types';
 import MyContext from '../context/MyContext';
+import Header from './Header';
 
-function Table({ filterByName }) {
-  const { planets, setPlanets, planetName, setPlanetName } = useContext(MyContext);
+function Table() {
+  const { planets, setPlanets, filterByName } = useContext(MyContext);
 
-  const handleChange = ({ target }) => {
-    // (loweCase) https://stackoverflow.com/questions/44469548/es6-filter-data-with-case-insensitive-term
-    const { name, value } = target;
-    setPlanetName({ [name]: { name: value } });
-    const teste = planets.filter((letter) => letter.name.toLowerCase()
-      .includes(value.toLowerCase()));
-      console.log(planets);
-    setPlanets(teste);
-  };
+  const teste = () => planets.filter((letter) => letter.name
+    .includes(filterByName.name));
 
   return (
     <div>
-      <input
-        data-testid="name-filter"
-        type="text"
-        name="filterByName"
-        value={ filterByName }
-        onChange={ handleChange }
-      />
+      <Header />
       <table>
         <thead>
           <tr>
@@ -43,7 +30,7 @@ function Table({ filterByName }) {
           </tr>
         </thead>
         <tbody>
-          {planets.map((s) => (
+          { planets && teste().map((s) => (
             <tr key={ s.name }>
               <td>{s.name}</td>
               <td>{s.rotation_period}</td>
@@ -66,9 +53,5 @@ function Table({ filterByName }) {
     </div>
   );
 }
-
-Table.propTypes = {
-  filterByName: PropTypes.string,
-}.isRequired;
 
 export default Table;
