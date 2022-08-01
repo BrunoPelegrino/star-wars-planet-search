@@ -3,7 +3,7 @@ import MyContext from '../context/MyContext';
 import Header from './Header';
 
 function Table() {
-  const { planets, setPlanets, filterByName } = useContext(MyContext);
+  const { planets, filterByName } = useContext(MyContext);
 
   const teste = () => planets.filter((letter) => letter.name
     .includes(filterByName.name));
