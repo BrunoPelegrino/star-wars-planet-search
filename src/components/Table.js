@@ -5,8 +5,8 @@ import Header from './Header';
 function Table() {
   const { planets, filterByName } = useContext(MyContext);
 
-  const teste = () => planets.filter((letter) => letter.name
-    .includes(filterByName.name));
+  const teste = () => planets.filter((letter) => letter.name.toLowerCase()
+    .includes(filterByName.name.toLowerCase()));
 
   return (
     <div>

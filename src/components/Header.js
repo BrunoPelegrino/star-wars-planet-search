@@ -1,27 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { PropTypes } from 'prop-types';
 import MyContext from '../context/MyContext';
+import NumericFilters from './NumericFiltes';
+
+// (loweCase) https://stackoverflow.com/questions/44469548/es6-filter-data-with-case-insensitive-term
 
 function Header() {
-  const { filterByName, setFilterByname } = useContext(MyContext);
+  const { filterByName, setFilterByName } = useContext(MyContext);
 
   const handleChange = ({ target }) => {
-    // (loweCase) https://stackoverflow.com/questions/44469548/es6-filter-data-with-case-insensitive-term
     const { value } = target;
-    setFilterByname({ name: value });
-    // setPlanets(teste);
-    // console.log(planets);
-    // console.log(teste);
+    setFilterByName({ name: value });
   };
   return (
     <div>
       <input
         data-testid="name-filter"
         type="text"
-        name="filteryNameB"
+        name="filterByName"
         value={ filterByName.name }
         onChange={ handleChange }
       />
+      <NumericFilters />
     </div>
   );
 }
