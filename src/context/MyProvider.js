@@ -6,7 +6,8 @@ import fetchPlanets from '../service/Api';
 const Provider = ({ children }) => {
   const [planets, setPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
-  // const [filterByNumber, setFilterByNumber] = useState('')
+  const [filterByNumbericValue,
+    setFilterByNumbericValue] = useState([]);
 
   const getPlanets = async () => {
     const response = await fetchPlanets();
@@ -28,6 +29,8 @@ const Provider = ({ children }) => {
     setPlanets,
     filterByName,
     setFilterByName,
+    filterByNumbericValue,
+    setFilterByNumbericValue,
   };
 
   return (

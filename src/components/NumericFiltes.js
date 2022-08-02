@@ -1,9 +1,15 @@
 import React, { useContext, useState } from 'react';
+import MyContext from '../context/MyContext';
 
 function NumericFilters() {
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFtiler, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState('0');
+  const { filterByNumbericValue, setFilterByNumbericValue } = useContext(MyContext);
+
+  const handleClick = (numericFilter) => {
+    setFilterByNumbericValue([...filterByNumbericValue, numericFilter]);
+  };
 
   /* const handleChange = ({ target }) => {
     const { value } = target;
@@ -15,17 +21,19 @@ function NumericFilters() {
     <div>
       <select
         data-testid="column-filter"
+        value={ columnFilter }
         onChange={ (e) => setColumnFilter(e.target.value) }
       >
         <option>population</option>
         <option>orbital_period</option>
         <option>diameter</option>
-        <option>rotatio_period</option>
+        <option>rotation_period</option>
         <option>surface_water</option>
       </select>
       { ' ' }
       <select
-        data-testid="data-testid='comparison-filter"
+        data-testid="comparison-filter"
+        value={ comparisonFtiler }
         onChange={ (e) => setComparisonFilter(e.target.value) }
       >
         <option>maior que</option>
@@ -44,6 +52,7 @@ function NumericFilters() {
       <button
         type="button"
         data-testid="button-filter"
+        onClick={ () => handleClick({ columnFilter, comparisonFtiler, valueFilter }) }
       >
         Filtrar
       </button>
