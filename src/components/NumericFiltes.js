@@ -8,19 +8,18 @@ function NumericFilters() {
   const { setPlanets, setFilterByNumericValue, planets } = useContext(MyContext);
 
   const handleClick = () => {
-    // codigo baseado no do mauricio leal https://github.com/tryber/sd-021-a-project-starwars-planets-search/pull/125/commits/db22d4daadad58b8c4a0988c2ad1cbd703af31bf
     setFilterByNumericValue(() => [{ columnFilter, comparisonFilter, valueFilter }]);
     const setFilter = planets.filter((planet) => {
-      const column = planet[columnFilter];
-      const value = valueFilter;
+      const valueColumn = Number(planet[columnFilter]);
+      const valueNumber = Number(valueFilter);
 
       if (comparisonFilter === 'maior que') {
-        return column > value;
+        return valueColumn > valueNumber;
       }
       if (comparisonFilter === 'menor que') {
-        return column < value;
+        return valueColumn < valueNumber;
       }
-      return column === value;
+      return valueColumn === valueNumber;
     });
     setPlanets(setFilter);
   };
