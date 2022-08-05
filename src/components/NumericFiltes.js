@@ -5,14 +5,15 @@ function NumericFilters() {
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState('0');
-  const [removeColumnFilter, setremoveColumnFilter] = useState(['population', 'orbital_period',
+  const [removeColumnFilter, setremoveColumnFilter] = useState(['population',
+    'orbital_period',
     'diameter', 'rotation_period', 'surface_water']);
   const { setPlanets, setFilterByNumericValue, planets } = useContext(MyContext);
 
   const removeColumn = () => {
     const attColumn = removeColumnFilter.filter((column) => column !== columnFilter);
     console.log(attColumn);
-    setColumnFilter(attColumn);
+    setremoveColumnFilter(attColumn);
   };
 
   const handleClick = () => {
@@ -50,11 +51,13 @@ function NumericFilters() {
         value={ columnFilter }
         onChange={ (e) => setColumnFilter(e.target.value) }
       >
-        <option>population</option>
-        <option>orbital_period</option>
-        <option>diameter</option>
-        <option>rotation_period</option>
-        <option>surface_water</option>
+        {removeColumnFilter.map((newColumn, i) => (
+          <option
+            key={ i }
+          >
+            { newColumn }
+
+          </option>))}
       </select>
       { ' ' }
       <select
