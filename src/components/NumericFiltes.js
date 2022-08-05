@@ -5,23 +5,34 @@ function NumericFilters() {
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState('0');
+  const [removeColumnFilter, setremoveColumnFilter] = useState(['population', 'orbital_period',
+    'diameter', 'rotation_period', 'surface_water']);
   const { setPlanets, setFilterByNumericValue, planets } = useContext(MyContext);
 
+  const removeColumn = () => {
+    const attColumn = removeColumnFilter.filter((column) => column !== columnFilter);
+    console.log(attColumn);
+    setColumnFilter(attColumn);
+  };
+
   const handleClick = () => {
-    setFilterByNumericValue(() => [{ columnFilter, comparisonFilter, valueFilter }]);
+    // codigo baseado no do mauricio leal https://github.com/tryber/sd-021-a-project-starwars-planets-search/pull/125/commits/db22d4daadad58b8c4a0988c2ad1cbd703af31bf
+    setFilterByNumericValue(() => [
+      { columnFilter, comparisonFilter, valueFilter }]);
     const setFilter = planets.filter((planet) => {
-      const valueColumn = Number(planet[columnFilter]);
-      const valueNumber = Number(valueFilter);
+      const column = Number(planet[columnFilter]);
+      const number = Number(valueFilter);
 
       if (comparisonFilter === 'maior que') {
-        return valueColumn > valueNumber;
+        return column > number;
       }
       if (comparisonFilter === 'menor que') {
-        return valueColumn < valueNumber;
+        return column < number;
       }
-      return valueColumn === valueNumber;
+      return column === number;
     });
     setPlanets(setFilter);
+    removeColumn();
   };
 
   /* const handleChange = ({ target }) => {
