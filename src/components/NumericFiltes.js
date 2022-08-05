@@ -8,6 +8,8 @@ function NumericFilters() {
   const [removeColumnFilter, setremoveColumnFilter] = useState(['population',
     'orbital_period',
     'diameter', 'rotation_period', 'surface_water']);
+  const [filteredComparison, setFilteredComparison] = useState(['maior que', 'menor que', 'igual a']);
+  const [teste, setTeste] = useState([]);
   const { setPlanets, setFilterByNumericValue, planets } = useContext(MyContext);
 
   const removeColumn = () => {
@@ -15,6 +17,19 @@ function NumericFilters() {
     console.log(attColumn);
     setremoveColumnFilter(attColumn);
     setColumnFilter(attColumn[0]);
+  };
+
+  const removeColumn2 = () => {
+    const attColumn = removeColumnFilter.filter((column) => column === columnFilter);
+    const attColumn3 = filteredComparison.filter((column) => column === comparisonFilter);
+    const attColumn2 = valueFilter;
+    console.log(attColumn);
+    console.log(attColumn2);
+    console.log(attColumn3);
+    setTeste((prev) => [...prev, [attColumn, attColumn3, attColumn2]]);
+
+    // setremoveColumnFilter(attColumn);
+    // setColumnFilter(attColumn[0]);
   };
 
   const handleClick = () => {
@@ -35,6 +50,7 @@ function NumericFilters() {
     });
     setPlanets(setFilter);
     removeColumn();
+    removeColumn2();
   };
 
   /* const handleChange = ({ target }) => {
@@ -87,6 +103,9 @@ function NumericFilters() {
       >
         Filtrar
       </button>
+      <div>
+        {teste.map((t, i) => (<div key={ i }><p key={ i }>{ t }</p> <button>Delete</button></div>))}
+      </div>
     </div>
   );
 }
