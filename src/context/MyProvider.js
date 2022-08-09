@@ -8,6 +8,7 @@ const Provider = ({ children }) => {
   const [filterByName, setFilterByName] = useState({ name: '' });
   const [filterByNumericValue,
     setFilterByNumericValue] = useState([]);
+  const [filtered, setFiltered] = useState([]);
 
   const getPlanets = async () => {
     const response = await fetchPlanets();
@@ -16,6 +17,7 @@ const Provider = ({ children }) => {
       // console.log(result);
       return result;
     }); setPlanets(data);
+    setFiltered(data);
     // setFilterByname(data);
     // console.log(data[0].name);
   };
@@ -31,6 +33,8 @@ const Provider = ({ children }) => {
     setFilterByName,
     filterByNumericValue,
     setFilterByNumericValue,
+    filtered,
+    setFiltered,
   };
 
   return (

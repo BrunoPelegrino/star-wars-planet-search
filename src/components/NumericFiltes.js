@@ -12,11 +12,11 @@ function NumericFilters() {
   // const [filteredComparison] = useState(['maior que', 'menor que', 'igual a']);
   // const [select, setSelect] = useState([]);
   const { setPlanets, setFilterByNumericValue,
-    planets, filterByNumericValue } = useContext(MyContext);
+    planets, filterByNumericValue, filtered } = useContext(MyContext);
 
   const removeColumn = () => {
     const attColumn = removeColumnFilter.filter((column) => column !== columnFilter);
-    console.log(attColumn);
+    // console.log(attColumn);
     setremoveColumnFilter(attColumn);
     setColumnFilter(attColumn[0]);
   };
@@ -36,6 +36,31 @@ function NumericFilters() {
     setValueFilter(0);
   };
 
+  const prevData = (array) => {
+    let listaFiltrada = filtered;
+    array.forEach((filter) => {
+      console.log(filter.columnFilter);
+      console.log(filter.comparisonFilter);
+      if (filter.comparisonFilter === 'igual a') {
+        listaFiltrada = listaFiltrada
+          .filter((item) => Number(item[filter
+            .columnFilter]) === Number(filter.valueFilter));
+      }
+      if (filter.comparisonFilter === 'maior que') {
+        listaFiltrada = listaFiltrada
+          .filter((item) => Number(item[filter
+            .columnFilter]) > Number(filter.valueFilter));
+      }
+
+      if (filter.comparisonFilter === 'menor que') {
+        listaFiltrada = listaFiltrada
+          .filter((item) => Number(item[filter
+            .columnFilter]) < Number(filter.valueFilter));
+      }
+    });
+    setPlanets(listaFiltrada);
+  };
+
   const deleteBtn = ({ target }) => {
     const newFilter = target.value;
     if (filterByNumericValue.length === 1) {
@@ -45,7 +70,7 @@ function NumericFilters() {
     const ddd = filterByNumericValue.filter((filter) => filter
       .columnFilter !== newFilter);
     setFilterByNumericValue(ddd);
-    console.log(newFilter);
+    prevData(ddd);
   };
 
   const handleClick = () => {
