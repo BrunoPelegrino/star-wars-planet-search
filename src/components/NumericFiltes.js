@@ -9,9 +9,10 @@ function NumericFilters() {
   const [removeColumnFilter, setremoveColumnFilter] = useState(['population',
     'orbital_period',
     'diameter', 'rotation_period', 'surface_water']);
-  const [filteredComparison] = useState(['maior que', 'menor que', 'igual a']);
-  const [teste, setTeste] = useState([]);
-  const { setPlanets, setFilterByNumericValue, planets } = useContext(MyContext);
+  // const [filteredComparison] = useState(['maior que', 'menor que', 'igual a']);
+  // const [select, setSelect] = useState([]);
+  const { setPlanets, setFilterByNumericValue,
+    planets, filterByNumericValue } = useContext(MyContext);
 
   const removeColumn = () => {
     const attColumn = removeColumnFilter.filter((column) => column !== columnFilter);
@@ -20,26 +21,16 @@ function NumericFilters() {
     setColumnFilter(attColumn[0]);
   };
 
-  const removeColumn2 = () => {
-    const attColumn = removeColumnFilter.filter((column) => column === columnFilter);
-    const attColumn3 = filteredComparison.filter((column) => column === comparisonFilter);
-    const attColumn2 = valueFilter;
-    console.log(attColumn);
-    console.log(attColumn3);
-    console.log(attColumn2);
-    setTeste((prev) => [...prev, [attColumn, attColumn3, attColumn2]]);
-  };
-
   const removeAll = async () => {
     const response = await fetchPlanets();
-    const ddd = response.results.map((result) => {
+    const data = response.results.map((result) => {
       delete result.residents;
       // console.log(result);
       return result;
     });
-    console.log(ddd);
-    setPlanets(ddd);
-    setTeste([]);
+    // console.log(data);
+    setPlanets(data);
+    setFilterByNumericValue([]);
     setremoveColumnFilter(['population', 'orbital_period',
       'diameter', 'rotation_period', 'surface_water']);
     setValueFilter(0);
@@ -47,10 +38,13 @@ function NumericFilters() {
 
   const deleteBtn = ({ target }) => {
     const newFilter = target.value;
-    if (teste.length === 1) {
+    if (filterByNumericValue.length === 1) {
       removeAll();
     }
-    setTeste(teste.filter((item) => item !== teste[0]));
+    // console.log(select);
+    const ddd = filterByNumericValue.filter((filter) => filter
+      .columnFilter !== newFilter);
+    setFilterByNumericValue(ddd);
     console.log(newFilter);
   };
 
@@ -72,7 +66,6 @@ function NumericFilters() {
     });
     setPlanets(setFilter);
     removeColumn();
-    removeColumn2();
   };
 
   /* const handleChange = ({ target }) => {
@@ -126,13 +119,18 @@ function NumericFilters() {
         Filtrar
       </button>
       <div>
-        {teste.map((t, i) => (
+        {filterByNumericValue.map((t, i) => (
           <div data-testid="filter" key={ i }>
-            <span key={ i }>{ t }</span>
+            <span key={ i }>
+              { t.columnFilter }
+              { t.comparisonFilter }
+              { t.valueFilter }
+            </span>
             {' '}
             <button
               onClick={ deleteBtn }
               type="button"
+              value={ t.columnFilter }
             >
               Delete
             </button>
