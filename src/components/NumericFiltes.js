@@ -1,18 +1,17 @@
 import React, { useContext, useState } from 'react';
 import MyContext from '../context/MyContext';
 import fetchPlanets from '../service/Api';
+import ColumnSort from './ColumnSort';
 
 function NumericFilters() {
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
-  const [removeColumnFilter, setremoveColumnFilter] = useState(['population',
-    'orbital_period',
-    'diameter', 'rotation_period', 'surface_water']);
   // const [filteredComparison] = useState(['maior que', 'menor que', 'igual a']);
   // const [select, setSelect] = useState([]);
   const { setPlanets, setFilterByNumericValue,
-    planets, filterByNumericValue, filtered } = useContext(MyContext);
+    planets, filterByNumericValue, filtered,
+    removeColumnFilter, setremoveColumnFilter } = useContext(MyContext);
 
   const removeColumn = () => {
     const attColumn = removeColumnFilter.filter((column) => column !== columnFilter);
@@ -169,6 +168,7 @@ function NumericFilters() {
           Delete All
         </button>
       </div>
+      <ColumnSort />
     </div>
   );
 }

@@ -9,6 +9,13 @@ const Provider = ({ children }) => {
   const [filterByNumericValue,
     setFilterByNumericValue] = useState([]);
   const [filtered, setFiltered] = useState([]);
+  const [ordem, setOrdem] = useState({ collumn: 'population',
+    sort: 'ASC' });
+  const [removeColumnFilter, setremoveColumnFilter] = useState(['population',
+    'orbital_period',
+    'diameter', 'rotation_period', 'surface_water']);
+  const [saveOrdem, setSaveOrdem] = useState([]);
+  const NEGATIVE = -1;
 
   const getPlanets = async () => {
     const response = await fetchPlanets();
@@ -16,7 +23,11 @@ const Provider = ({ children }) => {
       delete result.residents;
       // console.log(result);
       return result;
-    }); setPlanets(data);
+    });
+    // https://pt.stackoverflow.com/questions/46600/como-ordenar-uma-array-de-objetos-com-array-sort
+    const dataArray = data.map((newDataArray) => newDataArray);
+    const sortData = dataArray.sort((a, b) => (a.name < b.name ? NEGATIVE : 1));
+    setPlanets(sortData);
     setFiltered(data);
     // setFilterByname(data);
     // console.log(data[0].name);
@@ -35,6 +46,12 @@ const Provider = ({ children }) => {
     setFilterByNumericValue,
     filtered,
     setFiltered,
+    ordem,
+    setOrdem,
+    removeColumnFilter,
+    setremoveColumnFilter,
+    saveOrdem,
+    setSaveOrdem,
   };
 
   return (
