@@ -11,8 +11,9 @@ function ColumnSort() {
   return (
     <div>
       <label htmlFor="orderBy">
-        Oedenar por:
+        Ordenar por:
         <select
+          name="column"
           data-testid="column-sort"
           onClick={ handleClick }
         >

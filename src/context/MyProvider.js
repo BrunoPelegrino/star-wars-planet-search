@@ -9,7 +9,7 @@ const Provider = ({ children }) => {
   const [filterByNumericValue,
     setFilterByNumericValue] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [ordem, setOrdem] = useState({ collumn: 'population',
+  const [ordem, setOrdem] = useState({ column: 'population',
     sort: 'ASC' });
   const [removeColumnFilter, setremoveColumnFilter] = useState(['population',
     'orbital_period',
