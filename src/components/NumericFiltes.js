@@ -142,32 +142,31 @@ function NumericFilters() {
       >
         Filtrar
       </button>
-      <div>
-        {filterByNumericValue.map((t, i) => (
-          <div data-testid="filter" key={ i }>
-            <span key={ i }>
-              { t.columnFilter }
-              { t.comparisonFilter }
-              { t.valueFilter }
-            </span>
-            {' '}
-            <button
-              onClick={ deleteBtn }
-              type="button"
-              value={ t.columnFilter }
-            >
-              Delete
-            </button>
-          </div>
-        ))}
-        <button
-          data-testid="button-remove-filters"
-          onClick={ removeAll }
-          type="button"
-        >
-          Delete All
-        </button>
-      </div>
+      {filterByNumericValue.map((t, i) => (
+        <div data-testid="filter" key={ t.columnFilter }>
+          <span key={ i }>
+            { t.columnFilter }
+            { t.comparisonFilter }
+            { t.valueFilter }
+          </span>
+          {' '}
+          <button
+            onClick={ deleteBtn }
+            type="button"
+            value={ t.columnFilter }
+            name="delete"
+          >
+            X
+          </button>
+        </div>
+      ))}
+      <button
+        data-testid="button-remove-filters"
+        onClick={ removeAll }
+        type="button"
+      >
+        Delete All
+      </button>
       <ColumnSort />
     </div>
   );

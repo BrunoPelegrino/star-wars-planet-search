@@ -42,7 +42,7 @@ function ColumnSort() {
         <select
           name="column"
           data-testid="column-sort"
-          onClick={ handleClick }
+          onChange={ handleClick }
         >
 
           {removeColumnFilter.map((newColumn, i) => (
