@@ -15,7 +15,7 @@ function NumericFilters() {
 
   const removeColumn = () => {
     const attColumn = removeColumnFilter.filter((column) => column !== columnFilter);
-    // console.log(attColumn);
+    console.log(attColumn);
     setremoveColumnFilter(attColumn);
     setColumnFilter(attColumn[0]);
   };

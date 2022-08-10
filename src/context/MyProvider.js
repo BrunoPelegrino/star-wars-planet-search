@@ -14,7 +14,7 @@ const Provider = ({ children }) => {
   const [removeColumnFilter, setremoveColumnFilter] = useState(['population',
     'orbital_period',
     'diameter', 'rotation_period', 'surface_water']);
-  const [saveOrdem, setSaveOrdem] = useState([]);
+  // const [saveOrdem, setSaveOrdem] = useState([]);
   const NEGATIVE = -1;
 
   const getPlanets = async () => {
@@ -50,8 +50,6 @@ const Provider = ({ children }) => {
     setOrdem,
     removeColumnFilter,
     setremoveColumnFilter,
-    saveOrdem,
-    setSaveOrdem,
   };
 
   return (
