@@ -30,9 +30,9 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          { planets && teste().map((s) => (
-            <tr data-testid="planet-name" key={ s.name }>
-              <td>{s.name}</td>
+          { planets && teste().map((s, i) => (
+            <tr data-testid={ `s-${i + 1}` } key={ s.name }>
+              <td data-testid="planet-name">{s.name}</td>
               <td>{s.rotation_period}</td>
               <td>{s.orbital_period}</td>
               <td>{s.diameter}</td>
