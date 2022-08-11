@@ -142,4 +142,54 @@ it('Testa o botao filter maior', async () => {
     
   });
 
+  it('Testa a ordem ASC', async () => {
+    render(<App />);
+    const SELECT_COLUMN = screen.getByTestId("column-sort");
+    const INPUT_ASC = screen.getByTestId("column-sort-input-asc");
+
+    userEvent.selectOptions(SELECT_COLUMN, 'rotation_period' );
+    userEvent.selectOptions(SELECT_COLUMN, 'population' );
+    userEvent.click(INPUT_ASC);
+
+    const BTN_ORDER = screen.getByRole('button', {name: /ordenar/i});
+    userEvent.click(BTN_ORDER);
+  });
+  it('Testa a ordem DESC', async () => {
+    render(<App />);
+    const SELECT_COLUMN = screen.getByTestId("column-sort");
+    const INPUT_DESC = screen.getByTestId("column-sort-input-desc");
+
+    userEvent.selectOptions(SELECT_COLUMN, 'rotation_period' );
+    userEvent.selectOptions(SELECT_COLUMN, 'population' );
+    userEvent.click(INPUT_DESC);
+
+    const BTN_ORDER = screen.getByRole('button', {name: /ordenar/i});
+    userEvent.click(BTN_ORDER);
+  });
+
+  it('Testa order filters',async()=>{
+    render(<App/>);
+    const COLUMN_SORT = 'column-sort';
+    const ASC_ORDER = 'column-sort-input-asc';
+    const DESC_ORDER = 'column-sort-input-desc';
+    const BUTTON_SORT = 'column-sort-button';
+
+    await waitFor (async ()=> await screen.findAllByTestId("planet-name"), { timeout:500});
+
+    userEvent.selectOptions(screen.getByTestId(COLUMN_SORT), ['population']);
+    userEvent.click(screen.getByTestId(ASC_ORDER));
+    userEvent.click(screen.getByTestId(BUTTON_SORT));
+
+    await waitFor (async ()=> await screen.findAllByTestId("planet-name"), { timeout:500});
+
+
+
+    userEvent.selectOptions(screen.getByTestId(COLUMN_SORT), ['population']);
+    userEvent.click(screen.getByTestId(DESC_ORDER));
+    userEvent.click(screen.getByTestId(BUTTON_SORT));
+
+    await waitFor (async ()=> await screen.findAllByTestId("planet-name"), { timeout:500});
+
+    
+  }); 
 });
