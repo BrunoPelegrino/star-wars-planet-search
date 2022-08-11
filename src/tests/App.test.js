@@ -109,8 +109,36 @@ it('Testa o botao filter maior', async () => {
     userEvent.click(btn);
     expect(filteredDiv).not.toBeInTheDocument();
     
+    
+  });
 
+  it('Testa se ao deletar filtro tabela atualiza', async () => {
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor (async ()=> await screen.findAllByTestId("planet-name"));
+    const column = screen.getByTestId("column-filter");
+    const value = screen.getByTestId('value-filter');
+    const filterBtn = screen.getByTestId('button-filter');
+    const comparison = screen.getByTestId('comparison-filter');
 
+    userEvent.selectOptions(column, 'diameter' );
+    userEvent.selectOptions(comparison, 'maior que');
+    userEvent.type(value, '8900');
+    userEvent.click(filterBtn);
+
+    userEvent.selectOptions(column, 'population' );
+    userEvent.selectOptions(comparison, 'menor que');
+    userEvent.type(value, '1000000');
+    userEvent.click(filterBtn);
+
+    const filteredDiv = screen.getAllByTestId('filter');
+    expect(filteredDiv).toHaveLength(2);
+
+    const btn = screen.getAllByRole('button', {  name: /x/i})
+    expect(btn).toHaveLength(2);
+    userEvent.click(btn[1]);
+    expect(screen.getAllByTestId("planet-name")).toHaveLength(7);
     
   });
 
